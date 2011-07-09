@@ -89,7 +89,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'phpfog',
 		'password' => 'hj28f3x',
-		'database' => 'test_englishplactice-phpfogapp-com',
+		'database' => 'phpfog',
 		'prefix' => '',
 	);
 }
