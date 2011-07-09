@@ -76,8 +76,8 @@ class DATABASE_CONFIG {
 	var $default = array(
 		'driver' => 'mysql',
 		'persistent' => false,
-		'host' => 'db01-share',
-		'login' => 'CakePHP-8367',
+		'host' => 'localhost',
+		'login' => 'phpfog',
 		'password' => 'hj28f3x',
 		'database' => 'englishplactice-phpfogapp-com',
 		'prefix' => '',
@@ -86,10 +86,10 @@ class DATABASE_CONFIG {
 	var $test = array(
 		'driver' => 'mysql',
 		'persistent' => false,
-		'host' => 'db01-share',
-		'login' => 'CakePHP-8367',
+		'host' => 'localhost',
+		'login' => 'phpfog',
 		'password' => 'hj28f3x',
-		'database' => 'test_englishplactice-phpfogapp-com',
+		'database' => 'englishplactice-phpfogapp-com_test',
 		'prefix' => '',
 	);
 }
