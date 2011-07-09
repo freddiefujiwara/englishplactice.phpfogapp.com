@@ -6,7 +6,7 @@
  * @author Travis Swicegood <development@domain51.com>
  * @package SimpleTest
  * @subpackage UnitTester
- * @version $Id: collector.php 2011 2011-04-29 08:22:48Z pp11 $
+ * @version $Id: collector.php 1723 2008-04-08 00:34:10Z lastcraft $
  */
 
 /**
@@ -23,7 +23,7 @@ class SimpleCollector {
      * @param string $path    Path to normalise.
      * @return string         Path without trailing slash.
      */
-    protected function removeTrailingSlash($path) {
+    function _removeTrailingSlash($path) {
         if (substr($path, -1) == DIRECTORY_SEPARATOR) {
             return substr($path, 0, -1);
         } elseif (substr($path, -1) == '/') {
@@ -40,13 +40,13 @@ class SimpleCollector {
      * @see _attemptToAdd()
      */
     function collect(&$test, $path) {
-        $path = $this->removeTrailingSlash($path);
+        $path = $this->_removeTrailingSlash($path);
         if ($handle = opendir($path)) {
             while (($entry = readdir($handle)) !== false) {
-                if ($this->isHidden($entry)) {
+                if ($this->_isHidden($entry)) {
                     continue;
                 }
-                $this->handle($test, $path . DIRECTORY_SEPARATOR . $entry);
+                $this->_handle($test, $path . DIRECTORY_SEPARATOR . $entry);
             }
             closedir($handle);
         }
@@ -65,13 +65,13 @@ class SimpleCollector {
      * @see collect()
      * @access protected
      */
-    protected function handle(&$test, $file) {
+    function _handle(&$test, $file) {
         if (is_dir($file)) {
             return;
         }
-        $test->addFile($file);
+        $test->addTestFile($file);
     }
-
+    
     /**
      *  Tests for hidden files so as to skip them. Currently
      *  only tests for Unix hidden files.
@@ -79,7 +79,7 @@ class SimpleCollector {
      *  @return boolean                True if hidden file.
      *  @access private
      */
-    protected function isHidden($filename) {
+    function _isHidden($filename) {
         return strncmp($filename, '.', 1) == 0;
     }
 }
@@ -93,7 +93,7 @@ class SimpleCollector {
  * @see SimpleCollector
  */
 class SimplePatternCollector extends SimpleCollector {
-    private $pattern;
+    var $_pattern;
 
     /**
      *
@@ -101,8 +101,8 @@ class SimplePatternCollector extends SimpleCollector {
      *  See {@link http://us4.php.net/manual/en/reference.pcre.pattern.syntax.php PHP's PCRE}
      *  for full documentation of valid pattern.s
      */
-    function __construct($pattern = '/php$/i') {
-        $this->pattern = $pattern;
+    function SimplePatternCollector($pattern = '/php$/i') {
+        $this->_pattern = $pattern;
     }
 
     /**
@@ -113,9 +113,9 @@ class SimplePatternCollector extends SimpleCollector {
      * @param string $path    Directory to scan.
      * @access protected
      */
-    protected function handle(&$test, $filename) {
-        if (preg_match($this->pattern, $filename)) {
-            parent::handle($test, $filename);
+    function _handle(&$test, $filename) {
+        if (preg_match($this->_pattern, $filename)) {
+            parent::_handle($test, $filename);
         }
     }
 }

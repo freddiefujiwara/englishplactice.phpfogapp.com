@@ -3,7 +3,7 @@
  *  Base include file for SimpleTest.
  *  @package    SimpleTest
  *  @subpackage WebTester
- *  @version    $Id: selector.php 1786 2008-04-26 17:32:20Z pp11 $
+ *  @version    $Id: selector.php 1723 2008-04-08 00:34:10Z lastcraft $
  */
 
 /**#@+
@@ -20,22 +20,18 @@ require_once(dirname(__FILE__) . '/encoding.php');
  *    @subpackage WebTester
  */
 class SimpleByName {
-    private $name;
+    var $_name;
 
     /**
      *    Stashes the name for later comparison.
      *    @param string $name     Name attribute to match.
      */
-    function __construct($name) {
-        $this->name = $name;
+    function SimpleByName($name) {
+        $this->_name = $name;
     }
 
-    /**
-     *  Accessor for name.
-     *  @returns string $name       Name to match.
-     */
     function getName() {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
@@ -44,7 +40,7 @@ class SimpleByName {
      *    @access public
      */
     function isMatch($widget) {
-        return ($widget->getName() == $this->name);
+        return ($widget->getName() == $this->_name);
     }
 }
 
@@ -55,14 +51,14 @@ class SimpleByName {
  *    @subpackage WebTester
  */
 class SimpleByLabel {
-    private $label;
+    var $_label;
 
     /**
      *    Stashes the name for later comparison.
      *    @param string $label     Visible text to match.
      */
-    function __construct($label) {
-        $this->label = $label;
+    function SimpleByLabel($label) {
+        $this->_label = $label;
     }
 
     /**
@@ -75,7 +71,7 @@ class SimpleByLabel {
         if (! method_exists($widget, 'isLabel')) {
             return false;
         }
-        return $widget->isLabel($this->label);
+        return $widget->isLabel($this->_label);
     }
 }
 
@@ -86,14 +82,14 @@ class SimpleByLabel {
  *    @subpackage WebTester
  */
 class SimpleById {
-    private $id;
+    var $_id;
 
     /**
      *    Stashes the name for later comparison.
      *    @param string $id     ID atribute to match.
      */
-    function __construct($id) {
-        $this->id = $id;
+    function SimpleById($id) {
+        $this->_id = $id;
     }
 
     /**
@@ -102,7 +98,7 @@ class SimpleById {
      *    @access public
      */
     function isMatch($widget) {
-        return $widget->isId($this->id);
+        return $widget->isId($this->_id);
     }
 }
 
@@ -113,14 +109,14 @@ class SimpleById {
  *    @subpackage WebTester
  */
 class SimpleByLabelOrName {
-    private $label;
+    var $_label;
 
     /**
      *    Stashes the name/label for later comparison.
      *    @param string $label     Visible text to match.
      */
-    function __construct($label) {
-        $this->label = $label;
+    function SimpleByLabelOrName($label) {
+        $this->_label = $label;
     }
 
     /**
@@ -131,11 +127,11 @@ class SimpleByLabelOrName {
      */
     function isMatch($widget) {
         if (method_exists($widget, 'isLabel')) {
-            if ($widget->isLabel($this->label)) {
+            if ($widget->isLabel($this->_label)) {
                 return true;
             }
         }
-        return ($widget->getName() == $this->label);
+        return ($widget->getName() == $this->_label);
     }
 }
 ?>

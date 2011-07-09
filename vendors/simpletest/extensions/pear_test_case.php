@@ -3,7 +3,7 @@
      *	adapter for SimpleTest to use PEAR PHPUnit test cases
      *	@package	SimpleTest
      *	@subpackage Extensions
-     *	@version	$Id: pear_test_case.php 1836 2008-12-21 00:02:26Z edwardzyang $
+     *	@version	$Id: pear_test_case.php 1388 2006-11-10 20:59:59Z lastcraft $
      */
     
     /**#@+
@@ -22,15 +22,15 @@
      *    @subpackage   Extensions
      */
     class PHPUnit_TestCase extends SimpleTestCase {
-        private $_loosely_typed;
+        var $_loosely_typed;
         
         /**
          *    Constructor. Sets the test name.
          *    @param $label        Test name to display.
          *    @public
          */
-        function __construct($label = false) {
-            parent::__construct($label);
+        function PHPUnit_TestCase($label = false) {
+            $this->SimpleTestCase($label);
             $this->_loosely_typed = false;
         }
         
@@ -44,9 +44,9 @@
          */
         function assertEquals($first, $second, $message = "%s", $delta = 0) {
             if ($this->_loosely_typed) {
-                $expectation = new EqualExpectation($first);
+                $expectation = &new EqualExpectation($first);
             } else {
-                $expectation = new IdenticalExpectation($first);
+                $expectation = &new IdenticalExpectation($first);
             }
             $this->assert($expectation, $second, $message);
         }
@@ -72,14 +72,15 @@
         }
         
         /**
-         *    Identity test tests for the same object.
+         *    In PHP5 the identity test tests for the same
+         *    object. This is a reference test in PHP4.
          *    @param $first          First object handle.
          *    @param $second         Hopefully the same handle.
          *    @param $message        Message to display.
          *    @public
          */
-        function assertSame($first, $second, $message = "%s") {
-            $dumper = new SimpleDumper();
+        function assertSame(&$first, &$second, $message = "%s") {
+            $dumper = &new SimpleDumper();
             $message = sprintf(
                     $message,
                     "[" . $dumper->describeValue($first) .
@@ -92,14 +93,15 @@
         }
         
         /**
-         *    Inverted identity test.
+         *    In PHP5 the identity test tests for the same
+         *    object. This is a reference test in PHP4.
          *    @param $first          First object handle.
          *    @param $second         Hopefully a different handle.
          *    @param $message        Message to display.
          *    @public
          */
-        function assertNotSame($first, $second, $message = "%s") {
-            $dumper = new SimpleDumper();
+        function assertNotSame(&$first, &$second, $message = "%s") {
+            $dumper = &new SimpleDumper();
             $message = sprintf(
                     $message,
                     "[" . $dumper->describeValue($first) .

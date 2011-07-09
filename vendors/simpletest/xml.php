@@ -3,7 +3,7 @@
  *  base include file for SimpleTest
  *  @package    SimpleTest
  *  @subpackage UnitTester
- *  @version    $Id: xml.php 1787 2008-04-26 20:35:39Z pp11 $
+ *  @version    $Id: xml.php 1723 2008-04-08 00:34:10Z lastcraft $
  */
 
 /**#@+
@@ -19,8 +19,8 @@ require_once(dirname(__FILE__) . '/scorer.php');
  *    @subpackage UnitTester
  */
 class XmlReporter extends SimpleReporter {
-    private $indent;
-    private $namespace;
+    var $_indent;
+    var $_namespace;
 
     /**
      *    Sets up indentation and namespace.
@@ -28,10 +28,10 @@ class XmlReporter extends SimpleReporter {
      *    @param string $indent           Indenting to add on each nesting.
      *    @access public
      */
-    function __construct($namespace = false, $indent = '  ') {
-        parent::__construct();
-        $this->namespace = ($namespace ? $namespace . ':' : '');
-        $this->indent = $indent;
+    function XmlReporter($namespace = false, $indent = '  ') {
+        $this->SimpleReporter();
+        $this->_namespace = ($namespace ? $namespace . ':' : '');
+        $this->_indent = $indent;
     }
 
     /**
@@ -41,9 +41,9 @@ class XmlReporter extends SimpleReporter {
      *    @return string          Leading space.
      *    @access protected
      */
-    protected function getIndent($offset = 0) {
+    function _getIndent($offset = 0) {
         return str_repeat(
-                $this->indent,
+                $this->_indent,
                 count($this->getTestList()) + $offset);
     }
 
@@ -69,12 +69,12 @@ class XmlReporter extends SimpleReporter {
      */
     function paintGroupStart($test_name, $size) {
         parent::paintGroupStart($test_name, $size);
-        print $this->getIndent();
-        print "<" . $this->namespace . "group size=\"$size\">\n";
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "name>" .
+        print $this->_getIndent();
+        print "<" . $this->_namespace . "group size=\"$size\">\n";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "name>" .
                 $this->toParsedXml($test_name) .
-                "</" . $this->namespace . "name>\n";
+                "</" . $this->_namespace . "name>\n";
     }
 
     /**
@@ -83,8 +83,8 @@ class XmlReporter extends SimpleReporter {
      *    @access public
      */
     function paintGroupEnd($test_name) {
-        print $this->getIndent();
-        print "</" . $this->namespace . "group>\n";
+        print $this->_getIndent();
+        print "</" . $this->_namespace . "group>\n";
         parent::paintGroupEnd($test_name);
     }
 
@@ -95,12 +95,12 @@ class XmlReporter extends SimpleReporter {
      */
     function paintCaseStart($test_name) {
         parent::paintCaseStart($test_name);
-        print $this->getIndent();
-        print "<" . $this->namespace . "case>\n";
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "name>" .
+        print $this->_getIndent();
+        print "<" . $this->_namespace . "case>\n";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "name>" .
                 $this->toParsedXml($test_name) .
-                "</" . $this->namespace . "name>\n";
+                "</" . $this->_namespace . "name>\n";
     }
 
     /**
@@ -109,8 +109,8 @@ class XmlReporter extends SimpleReporter {
      *    @access public
      */
     function paintCaseEnd($test_name) {
-        print $this->getIndent();
-        print "</" . $this->namespace . "case>\n";
+        print $this->_getIndent();
+        print "</" . $this->_namespace . "case>\n";
         parent::paintCaseEnd($test_name);
     }
 
@@ -121,12 +121,12 @@ class XmlReporter extends SimpleReporter {
      */
     function paintMethodStart($test_name) {
         parent::paintMethodStart($test_name);
-        print $this->getIndent();
-        print "<" . $this->namespace . "test>\n";
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "name>" .
+        print $this->_getIndent();
+        print "<" . $this->_namespace . "test>\n";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "name>" .
                 $this->toParsedXml($test_name) .
-                "</" . $this->namespace . "name>\n";
+                "</" . $this->_namespace . "name>\n";
     }
 
     /**
@@ -136,8 +136,8 @@ class XmlReporter extends SimpleReporter {
      *    @access public
      */
     function paintMethodEnd($test_name) {
-        print $this->getIndent();
-        print "</" . $this->namespace . "test>\n";
+        print $this->_getIndent();
+        print "</" . $this->_namespace . "test>\n";
         parent::paintMethodEnd($test_name);
     }
 
@@ -148,10 +148,10 @@ class XmlReporter extends SimpleReporter {
      */
     function paintPass($message) {
         parent::paintPass($message);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "pass>";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "pass>";
         print $this->toParsedXml($message);
-        print "</" . $this->namespace . "pass>\n";
+        print "</" . $this->_namespace . "pass>\n";
     }
 
     /**
@@ -161,10 +161,10 @@ class XmlReporter extends SimpleReporter {
      */
     function paintFail($message) {
         parent::paintFail($message);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "fail>";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "fail>";
         print $this->toParsedXml($message);
-        print "</" . $this->namespace . "fail>\n";
+        print "</" . $this->_namespace . "fail>\n";
     }
 
     /**
@@ -174,10 +174,10 @@ class XmlReporter extends SimpleReporter {
      */
     function paintError($message) {
         parent::paintError($message);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "exception>";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "exception>";
         print $this->toParsedXml($message);
-        print "</" . $this->namespace . "exception>\n";
+        print "</" . $this->_namespace . "exception>\n";
     }
 
     /**
@@ -187,14 +187,14 @@ class XmlReporter extends SimpleReporter {
      */
     function paintException($exception) {
         parent::paintException($exception);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "exception>";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "exception>";
         $message = 'Unexpected exception of type [' . get_class($exception) .
                 '] with message ['. $exception->getMessage() .
                 '] in ['. $exception->getFile() .
                 ' line ' . $exception->getLine() . ']';
         print $this->toParsedXml($message);
-        print "</" . $this->namespace . "exception>\n";
+        print "</" . $this->_namespace . "exception>\n";
     }
 
     /**
@@ -204,10 +204,10 @@ class XmlReporter extends SimpleReporter {
      */
     function paintSkip($message) {
         parent::paintSkip($message);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "skip>";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "skip>";
         print $this->toParsedXml($message);
-        print "</" . $this->namespace . "skip>\n";
+        print "</" . $this->_namespace . "skip>\n";
     }
 
     /**
@@ -217,24 +217,24 @@ class XmlReporter extends SimpleReporter {
      */
     function paintMessage($message) {
         parent::paintMessage($message);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "message>";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "message>";
         print $this->toParsedXml($message);
-        print "</" . $this->namespace . "message>\n";
+        print "</" . $this->_namespace . "message>\n";
     }
 
     /**
      *    Paints a formatted ASCII message such as a
-     *    privateiable dump.
+     *    variable dump.
      *    @param string $message        Text to display.
      *    @access public
      */
     function paintFormattedMessage($message) {
         parent::paintFormattedMessage($message);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "formatted>";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "formatted>";
         print "<![CDATA[$message]]>";
-        print "</" . $this->namespace . "formatted>\n";
+        print "</" . $this->_namespace . "formatted>\n";
     }
 
     /**
@@ -245,10 +245,10 @@ class XmlReporter extends SimpleReporter {
      */
     function paintSignal($type, $payload) {
         parent::paintSignal($type, $payload);
-        print $this->getIndent(1);
-        print "<" . $this->namespace . "signal type=\"$type\">";
+        print $this->_getIndent(1);
+        print "<" . $this->_namespace . "signal type=\"$type\">";
         print "<![CDATA[" . serialize($payload) . "]]>";
-        print "</" . $this->namespace . "signal>\n";
+        print "</" . $this->_namespace . "signal>\n";
     }
 
     /**
@@ -263,12 +263,12 @@ class XmlReporter extends SimpleReporter {
             header('Content-type: text/xml');
         }
         print "<?xml version=\"1.0\"";
-        if ($this->namespace) {
-            print " xmlns:" . $this->namespace .
+        if ($this->_namespace) {
+            print " xmlns:" . $this->_namespace .
                     "=\"www.lastcraft.com/SimpleTest/Beta3/Report\"";
         }
         print "?>\n";
-        print "<" . $this->namespace . "run>\n";
+        print "<" . $this->_namespace . "run>\n";
     }
 
     /**
@@ -278,7 +278,7 @@ class XmlReporter extends SimpleReporter {
      *    @abstract
      */
     function paintFooter($test_name) {
-        print "</" . $this->namespace . "run>\n";
+        print "</" . $this->_namespace . "run>\n";
     }
 }
 
@@ -290,8 +290,8 @@ class XmlReporter extends SimpleReporter {
  *    @subpackage UnitTester
  */
 class NestingXmlTag {
-    private $name;
-    private $attributes;
+    var $_name;
+    var $_attributes;
 
     /**
      *    Sets the basic test information except
@@ -300,8 +300,8 @@ class NestingXmlTag {
      *    @access public
      */
     function NestingXmlTag($attributes) {
-        $this->name = false;
-        $this->attributes = $attributes;
+        $this->_name = false;
+        $this->_attributes = $attributes;
     }
 
     /**
@@ -310,7 +310,7 @@ class NestingXmlTag {
      *    @access public
      */
     function setName($name) {
-        $this->name = $name;
+        $this->_name = $name;
     }
 
     /**
@@ -319,7 +319,7 @@ class NestingXmlTag {
      *    @access public
      */
     function getName() {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
@@ -327,8 +327,8 @@ class NestingXmlTag {
      *    @return hash        All attributes.
      *    @access protected
      */
-    protected function getAttributes() {
-        return $this->attributes;
+    function _getAttributes() {
+        return $this->_attributes;
     }
 }
 
@@ -457,7 +457,7 @@ class NestingGroupTag extends NestingXmlTag {
      *    @access public
      */
     function getSize() {
-        $attributes = $this->getAttributes();
+        $attributes = $this->_getAttributes();
         if (isset($attributes['SIZE'])) {
             return (integer)$attributes['SIZE'];
         }
@@ -472,12 +472,12 @@ class NestingGroupTag extends NestingXmlTag {
  *    @subpackage UnitTester
  */
 class SimpleTestXmlParser {
-    private $listener;
-    private $expat;
-    private $tag_stack;
-    private $in_content_tag;
-    private $content;
-    private $attributes;
+    var $_listener;
+    var $_expat;
+    var $_tag_stack;
+    var $_in_content_tag;
+    var $_content;
+    var $_attributes;
 
     /**
      *    Loads a listener with the SimpleReporter
@@ -486,12 +486,12 @@ class SimpleTestXmlParser {
      *    @access public
      */
     function SimpleTestXmlParser(&$listener) {
-        $this->listener = &$listener;
-        $this->expat = &$this->createParser();
-        $this->tag_stack = array();
-        $this->in_content_tag = false;
-        $this->content = '';
-        $this->attributes = array();
+        $this->_listener = &$listener;
+        $this->_expat = &$this->_createParser();
+        $this->_tag_stack = array();
+        $this->_in_content_tag = false;
+        $this->_content = '';
+        $this->_attributes = array();
     }
 
     /**
@@ -502,9 +502,9 @@ class SimpleTestXmlParser {
      *    @access public
      */
     function parse($chunk) {
-        if (! xml_parse($this->expat, $chunk)) {
+        if (! xml_parse($this->_expat, $chunk)) {
             trigger_error('XML parse error with ' .
-                    xml_error_string(xml_get_error_code($this->expat)));
+                    xml_error_string(xml_get_error_code($this->_expat)));
             return false;
         }
         return true;
@@ -515,12 +515,12 @@ class SimpleTestXmlParser {
      *    @return resource        Expat handle.
      *    @access protected
      */
-    protected function &createParser() {
+    function &_createParser() {
         $expat = xml_parser_create();
         xml_set_object($expat, $this);
-        xml_set_element_handler($expat, 'startElement', 'endElement');
-        xml_set_character_data_handler($expat, 'addContent');
-        xml_set_default_handler($expat, 'defaultContent');
+        xml_set_element_handler($expat, '_startElement', '_endElement');
+        xml_set_character_data_handler($expat, '_addContent');
+        xml_set_default_handler($expat, '_default');
         return $expat;
     }
 
@@ -530,8 +530,8 @@ class SimpleTestXmlParser {
      *                             to start.
      *    @access private
      */
-    protected function pushNestingTag($nested) {
-        array_unshift($this->tag_stack, $nested);
+    function _pushNestingTag($nested) {
+        array_unshift($this->_tag_stack, $nested);
     }
 
     /**
@@ -540,8 +540,8 @@ class SimpleTestXmlParser {
      *                             being parsed.
      *    @access private
      */
-    protected function &getCurrentNestingTag() {
-        return $this->tag_stack[0];
+    function &_getCurrentNestingTag() {
+        return $this->_tag_stack[0];
     }
 
     /**
@@ -550,8 +550,8 @@ class SimpleTestXmlParser {
      *                             just finished.
      *    @access private
      */
-    protected function popNestingTag() {
-        return array_shift($this->tag_stack);
+    function _popNestingTag() {
+        return array_shift($this->_tag_stack);
     }
 
     /**
@@ -560,7 +560,7 @@ class SimpleTestXmlParser {
      *    @return @boolean          True if leaf, false if nesting.
      *    @private
      */
-    protected function isLeaf($tag) {
+    function _isLeaf($tag) {
         return in_array($tag, array(
                 'NAME', 'PASS', 'FAIL', 'EXCEPTION', 'SKIP', 'MESSAGE', 'FORMATTED', 'SIGNAL'));
     }
@@ -574,17 +574,17 @@ class SimpleTestXmlParser {
      *                               are marked as true.
      *    @access protected
      */
-    protected function startElement($expat, $tag, $attributes) {
-        $this->attributes = $attributes;
+    function _startElement($expat, $tag, $attributes) {
+        $this->_attributes = $attributes;
         if ($tag == 'GROUP') {
-            $this->pushNestingTag(new NestingGroupTag($attributes));
+            $this->_pushNestingTag(new NestingGroupTag($attributes));
         } elseif ($tag == 'CASE') {
-            $this->pushNestingTag(new NestingCaseTag($attributes));
+            $this->_pushNestingTag(new NestingCaseTag($attributes));
         } elseif ($tag == 'TEST') {
-            $this->pushNestingTag(new NestingMethodTag($attributes));
-        } elseif ($this->isLeaf($tag)) {
-            $this->in_content_tag = true;
-            $this->content = '';
+            $this->_pushNestingTag(new NestingMethodTag($attributes));
+        } elseif ($this->_isLeaf($tag)) {
+            $this->_in_content_tag = true;
+            $this->_content = '';
         }
     }
 
@@ -594,31 +594,31 @@ class SimpleTestXmlParser {
      *    @param string $tag         Element name.
      *    @access protected
      */
-    protected function endElement($expat, $tag) {
-        $this->in_content_tag = false;
+    function _endElement($expat, $tag) {
+        $this->_in_content_tag = false;
         if (in_array($tag, array('GROUP', 'CASE', 'TEST'))) {
-            $nesting_tag = $this->popNestingTag();
-            $nesting_tag->paintEnd($this->listener);
+            $nesting_tag = $this->_popNestingTag();
+            $nesting_tag->paintEnd($this->_listener);
         } elseif ($tag == 'NAME') {
-            $nesting_tag = &$this->getCurrentNestingTag();
-            $nesting_tag->setName($this->content);
-            $nesting_tag->paintStart($this->listener);
+            $nesting_tag = &$this->_getCurrentNestingTag();
+            $nesting_tag->setName($this->_content);
+            $nesting_tag->paintStart($this->_listener);
         } elseif ($tag == 'PASS') {
-            $this->listener->paintPass($this->content);
+            $this->_listener->paintPass($this->_content);
         } elseif ($tag == 'FAIL') {
-            $this->listener->paintFail($this->content);
+            $this->_listener->paintFail($this->_content);
         } elseif ($tag == 'EXCEPTION') {
-            $this->listener->paintError($this->content);
+            $this->_listener->paintError($this->_content);
         } elseif ($tag == 'SKIP') {
-            $this->listener->paintSkip($this->content);
+            $this->_listener->paintSkip($this->_content);
         } elseif ($tag == 'SIGNAL') {
-            $this->listener->paintSignal(
-                    $this->attributes['TYPE'],
-                    unserialize($this->content));
+            $this->_listener->paintSignal(
+                    $this->_attributes['TYPE'],
+                    unserialize($this->_content));
         } elseif ($tag == 'MESSAGE') {
-            $this->listener->paintMessage($this->content);
+            $this->_listener->paintMessage($this->_content);
         } elseif ($tag == 'FORMATTED') {
-            $this->listener->paintFormattedMessage($this->content);
+            $this->_listener->paintFormattedMessage($this->_content);
         }
     }
 
@@ -628,9 +628,9 @@ class SimpleTestXmlParser {
      *    @param string $text        Usually output messages.
      *    @access protected
      */
-    protected function addContent($expat, $text) {
-        if ($this->in_content_tag) {
-            $this->content .= $text;
+    function _addContent($expat, $text) {
+        if ($this->_in_content_tag) {
+            $this->_content .= $text;
         }
         return true;
     }
@@ -641,7 +641,7 @@ class SimpleTestXmlParser {
      *    @param string $default     Text of default content.
      *    @access protected
      */
-    protected function defaultContent($expat, $default) {
+    function _default($expat, $default) {
     }
 }
 ?>

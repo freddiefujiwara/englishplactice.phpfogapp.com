@@ -3,7 +3,7 @@
  *  Base include file for SimpleTest
  *  @package    SimpleTest
  *  @subpackage WebTester
- *  @version    $Id: frames.php 1784 2008-04-26 13:07:14Z pp11 $
+ *  @version    $Id: frames.php 1672 2008-03-02 04:47:34Z edwardzyang $
  */
 
 /**#@+
@@ -22,21 +22,21 @@ require_once(dirname(__FILE__) . '/user_agent.php');
  *    @subpackage WebTester
  */
 class SimpleFrameset {
-    private $frameset;
-    private $frames;
-    private $focus;
-    private $names;
+    var $_frameset;
+    var $_frames;
+    var $_focus;
+    var $_names;
 
     /**
      *    Stashes the frameset page. Will make use of the
      *    browser to fetch the sub frames recursively.
      *    @param SimplePage $page        Frameset page.
      */
-    function __construct($page) {
-        $this->frameset = $page;
-        $this->frames = array();
-        $this->focus = false;
-        $this->names = array();
+    function SimpleFrameset(&$page) {
+        $this->_frameset = &$page;
+        $this->_frames = array();
+        $this->_focus = false;
+        $this->_names = array();
     }
 
     /**
@@ -45,10 +45,10 @@ class SimpleFrameset {
      *    @param string $name        Name of frame in frameset.
      *    @access public
      */
-    function addFrame($page, $name = false) {
-        $this->frames[] = $page;
+    function addFrame(&$page, $name = false) {
+        $this->_frames[] = &$page;
         if ($name) {
-            $this->names[$name] = count($this->frames) - 1;
+            $this->_names[$name] = count($this->_frames) - 1;
         }
     }
 
@@ -60,18 +60,18 @@ class SimpleFrameset {
      *    @param SimplePage $page   Frame source.
      *    @access public
      */
-    function setFrame($path, $page) {
+    function setFrame($path, &$page) {
         $name = array_shift($path);
-        if (isset($this->names[$name])) {
-            $index = $this->names[$name];
+        if (isset($this->_names[$name])) {
+            $index = $this->_names[$name];
         } else {
             $index = $name - 1;
         }
         if (count($path) == 0) {
-            $this->frames[$index] = &$page;
+            $this->_frames[$index] = &$page;
             return;
         }
-        $this->frames[$index]->setFrame($path, $page);
+        $this->_frames[$index]->setFrame($path, $page);
     }
 
     /**
@@ -82,12 +82,12 @@ class SimpleFrameset {
      *    @access public
      */
     function getFrameFocus() {
-        if ($this->focus === false) {
+        if ($this->_focus === false) {
             return array();
         }
         return array_merge(
-                array($this->getPublicNameFromIndex($this->focus)),
-                $this->frames[$this->focus]->getFrameFocus());
+                array($this->_getPublicNameFromIndex($this->_focus)),
+                $this->_frames[$this->_focus]->getFrameFocus());
     }
 
     /**
@@ -98,8 +98,8 @@ class SimpleFrameset {
      *    @return integer/string     Public name.
      *    @access private
      */
-    protected function getPublicNameFromIndex($subject) {
-        foreach ($this->names as $name => $index) {
+    function _getPublicNameFromIndex($subject) {
+        foreach ($this->_names as $name => $index) {
             if ($subject == $index) {
                 return $name;
             }
@@ -116,15 +116,15 @@ class SimpleFrameset {
      *    @access public
      */
     function setFrameFocusByIndex($choice) {
-        if (is_integer($this->focus)) {
-            if ($this->frames[$this->focus]->hasFrames()) {
-                return $this->frames[$this->focus]->setFrameFocusByIndex($choice);
+        if (is_integer($this->_focus)) {
+            if ($this->_frames[$this->_focus]->hasFrames()) {
+                return $this->_frames[$this->_focus]->setFrameFocusByIndex($choice);
             }
         }
-        if (($choice < 1) || ($choice > count($this->frames))) {
+        if (($choice < 1) || ($choice > count($this->_frames))) {
             return false;
         }
-        $this->focus = $choice - 1;
+        $this->_focus = $choice - 1;
         return true;
     }
 
@@ -137,13 +137,13 @@ class SimpleFrameset {
      *    @access public
      */
     function setFrameFocus($name) {
-        if (is_integer($this->focus)) {
-            if ($this->frames[$this->focus]->hasFrames()) {
-                return $this->frames[$this->focus]->setFrameFocus($name);
+        if (is_integer($this->_focus)) {
+            if ($this->_frames[$this->_focus]->hasFrames()) {
+                return $this->_frames[$this->_focus]->setFrameFocus($name);
             }
         }
-        if (in_array($name, array_keys($this->names))) {
-            $this->focus = $this->names[$name];
+        if (in_array($name, array_keys($this->_names))) {
+            $this->_focus = $this->_names[$name];
             return true;
         }
         return false;
@@ -154,17 +154,17 @@ class SimpleFrameset {
      *    @access public
      */
     function clearFrameFocus() {
-        $this->focus = false;
-        $this->clearNestedFramesFocus();
+        $this->_focus = false;
+        $this->_clearNestedFramesFocus();
     }
 
     /**
      *    Clears the frame focus for any nested frames.
      *    @access private
      */
-    protected function clearNestedFramesFocus() {
-        for ($i = 0; $i < count($this->frames); $i++) {
-            $this->frames[$i]->clearFrameFocus();
+    function _clearNestedFramesFocus() {
+        for ($i = 0; $i < count($this->_frames); $i++) {
+            $this->_frames[$i]->clearFrameFocus();
         }
     }
 
@@ -186,9 +186,9 @@ class SimpleFrameset {
      */
     function getFrames() {
         $report = array();
-        for ($i = 0; $i < count($this->frames); $i++) {
-            $report[$this->getPublicNameFromIndex($i)] =
-                    $this->frames[$i]->getFrames();
+        for ($i = 0; $i < count($this->_frames); $i++) {
+            $report[$this->_getPublicNameFromIndex($i)] =
+                    $this->_frames[$i]->getFrames();
         }
         return $report;
     }
@@ -200,12 +200,12 @@ class SimpleFrameset {
      *    @access public
      */
     function getRaw() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getRaw();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getRaw();
         }
         $raw = '';
-        for ($i = 0; $i < count($this->frames); $i++) {
-            $raw .= $this->frames[$i]->getRaw();
+        for ($i = 0; $i < count($this->_frames); $i++) {
+            $raw .= $this->_frames[$i]->getRaw();
         }
         return $raw;
     }
@@ -217,12 +217,12 @@ class SimpleFrameset {
      *    @access public
      */
     function getText() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getText();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getText();
         }
         $raw = '';
-        for ($i = 0; $i < count($this->frames); $i++) {
-            $raw .= ' ' . $this->frames[$i]->getText();
+        for ($i = 0; $i < count($this->_frames); $i++) {
+            $raw .= ' ' . $this->_frames[$i]->getText();
         }
         return trim($raw);
     }
@@ -233,10 +233,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getTransportError() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getTransportError();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getTransportError();
         }
-        return $this->frameset->getTransportError();
+        return $this->_frameset->getTransportError();
     }
 
     /**
@@ -245,10 +245,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getMethod() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getMethod();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getMethod();
         }
-        return $this->frameset->getMethod();
+        return $this->_frameset->getMethod();
     }
 
     /**
@@ -257,11 +257,11 @@ class SimpleFrameset {
      *    @access public
      */
     function getUrl() {
-        if (is_integer($this->focus)) {
-            $url = $this->frames[$this->focus]->getUrl();
-            $url->setTarget($this->getPublicNameFromIndex($this->focus));
+        if (is_integer($this->_focus)) {
+            $url = $this->_frames[$this->_focus]->getUrl();
+            $url->setTarget($this->_getPublicNameFromIndex($this->_focus));
         } else {
-            $url = $this->frameset->getUrl();
+            $url = $this->_frameset->getUrl();
         }
         return $url;
     }
@@ -272,10 +272,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getBaseUrl() {
-        if (is_integer($this->focus)) {
-            $url = $this->frames[$this->focus]->getBaseUrl();
+        if (is_integer($this->_focus)) {
+            $url = $this->_frames[$this->_focus]->getBaseUrl();
         } else {
-            $url = $this->frameset->getBaseUrl();
+            $url = $this->_frameset->getBaseUrl();
         }
         return $url;
     }
@@ -288,7 +288,7 @@ class SimpleFrameset {
      *    @access public
      */
     function expandUrl($url) {
-        return $this->frameset->expandUrl($url);
+        return $this->_frameset->expandUrl($url);
     }
 
     /**
@@ -297,10 +297,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getRequestData() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getRequestData();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getRequestData();
         }
-        return $this->frameset->getRequestData();
+        return $this->_frameset->getRequestData();
     }
 
     /**
@@ -309,10 +309,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getMimeType() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getMimeType();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getMimeType();
         }
-        return $this->frameset->getMimeType();
+        return $this->_frameset->getMimeType();
     }
 
     /**
@@ -321,10 +321,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getResponseCode() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getResponseCode();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getResponseCode();
         }
-        return $this->frameset->getResponseCode();
+        return $this->_frameset->getResponseCode();
     }
 
     /**
@@ -334,10 +334,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getAuthentication() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getAuthentication();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getAuthentication();
         }
-        return $this->frameset->getAuthentication();
+        return $this->_frameset->getAuthentication();
     }
 
     /**
@@ -347,10 +347,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getRealm() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getRealm();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getRealm();
         }
-        return $this->frameset->getRealm();
+        return $this->_frameset->getRealm();
     }
 
     /**
@@ -359,10 +359,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getRequest() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getRequest();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getRequest();
         }
-        return $this->frameset->getRequest();
+        return $this->_frameset->getRequest();
     }
 
     /**
@@ -371,10 +371,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getHeaders() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getHeaders();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getHeaders();
         }
-        return $this->frameset->getHeaders();
+        return $this->_frameset->getHeaders();
     }
 
     /**
@@ -383,7 +383,7 @@ class SimpleFrameset {
      *    @access public
      */
     function getTitle() {
-        return $this->frameset->getTitle();
+        return $this->_frameset->getTitle();
     }
 
     /**
@@ -392,11 +392,11 @@ class SimpleFrameset {
      *    @access public
      */
     function getUrls() {
-        if (is_integer($this->focus)) {
-            return $this->frames[$this->focus]->getUrls();
+        if (is_integer($this->_focus)) {
+            return $this->_frames[$this->_focus]->getUrls();
         }
         $urls = array();
-        foreach ($this->frames as $frame) {
+        foreach ($this->_frames as $frame) {
             $urls = array_merge($urls, $frame->getUrls());
         }
         return array_values(array_unique($urls));
@@ -410,16 +410,16 @@ class SimpleFrameset {
      *    @access public
      */
     function getUrlsByLabel($label) {
-        if (is_integer($this->focus)) {
-            return $this->tagUrlsWithFrame(
-                    $this->frames[$this->focus]->getUrlsByLabel($label),
-                    $this->focus);
+        if (is_integer($this->_focus)) {
+            return $this->_tagUrlsWithFrame(
+                    $this->_frames[$this->_focus]->getUrlsByLabel($label),
+                    $this->_focus);
         }
         $urls = array();
-        foreach ($this->frames as $index => $frame) {
+        foreach ($this->_frames as $index => $frame) {
             $urls = array_merge(
                     $urls,
-                    $this->tagUrlsWithFrame(
+                    $this->_tagUrlsWithFrame(
                                 $frame->getUrlsByLabel($label),
                                 $index));
         }
@@ -436,10 +436,10 @@ class SimpleFrameset {
      *    @access public
      */
     function getUrlById($id) {
-        foreach ($this->frames as $index => $frame) {
+        foreach ($this->_frames as $index => $frame) {
             if ($url = $frame->getUrlById($id)) {
                 if (! $url->gettarget()) {
-                    $url->setTarget($this->getPublicNameFromIndex($index));
+                    $url->setTarget($this->_getPublicNameFromIndex($index));
                 }
                 return $url;
             }
@@ -454,11 +454,11 @@ class SimpleFrameset {
      *    @return array             List of tagged URLs.
      *    @access private
      */
-    protected function tagUrlsWithFrame($urls, $frame) {
+    function _tagUrlsWithFrame($urls, $frame) {
         $tagged = array();
         foreach ($urls as $url) {
             if (! $url->getTarget()) {
-                $url->setTarget($this->getPublicNameFromIndex($frame));
+                $url->setTarget($this->_getPublicNameFromIndex($frame));
             }
             $tagged[] = $url;
         }
@@ -473,8 +473,9 @@ class SimpleFrameset {
      *                                          the button.
      *    @access public
      */
-    function getFormBySubmit($selector) {
-        return $this->findForm('getFormBySubmit', $selector);
+    function &getFormBySubmit($selector) {
+        $form = &$this->_findForm('getFormBySubmit', $selector);
+        return $form;
     }
 
     /**
@@ -487,8 +488,9 @@ class SimpleFrameset {
      *                                     the image.
      *    @access public
      */
-    function getFormByImage($selector) {
-        return $this->findForm('getFormByImage', $selector);
+    function &getFormByImage($selector) {
+        $form = &$this->_findForm('getFormByImage', $selector);
+        return $form;
     }
 
     /**
@@ -501,8 +503,9 @@ class SimpleFrameset {
      *    @return SimpleForm    Form object containing the matching ID.
      *    @access public
      */
-    function getFormById($id) {
-        return $this->findForm('getFormById', $id);
+    function &getFormById($id) {
+        $form = &$this->_findForm('getFormById', $id);
+        return $form;
     }
 
     /**
@@ -513,17 +516,18 @@ class SimpleFrameset {
         *    @return SimpleForm    Form object containing the matching ID.
         *    @access private
         */
-    protected function findForm($method, $attribute) {
-        if (is_integer($this->focus)) {
-            return $this->findFormInFrame(
-                    $this->frames[$this->focus],
-                    $this->focus,
+    function &_findForm($method, $attribute) {
+        if (is_integer($this->_focus)) {
+            $form = &$this->_findFormInFrame(
+                    $this->_frames[$this->_focus],
+                    $this->_focus,
                     $method,
                     $attribute);
+            return $form;
         }
-        for ($i = 0; $i < count($this->frames); $i++) {
-            $form = $this->findFormInFrame(
-                    $this->frames[$i],
+        for ($i = 0; $i < count($this->_frames); $i++) {
+            $form = &$this->_findFormInFrame(
+                    $this->_frames[$i],
                     $i,
                     $method,
                     $attribute);
@@ -545,10 +549,10 @@ class SimpleFrameset {
      *    @return SimpleForm       Form object containing the matching ID.
      *    @access private
      */
-    protected function findFormInFrame($page, $index, $method, $attribute) {
-        $form = $this->frames[$index]->$method($attribute);
+    function &_findFormInFrame(&$page, $index, $method, $attribute) {
+        $form = &$this->_frames[$index]->$method($attribute);
         if (isset($form)) {
-            $form->setDefaultTarget($this->getPublicNameFromIndex($index));
+            $form->setDefaultTarget($this->_getPublicNameFromIndex($index));
         }
         return $form;
     }
@@ -562,11 +566,11 @@ class SimpleFrameset {
      *    @access public
      */
     function setField($selector, $value) {
-        if (is_integer($this->focus)) {
-            $this->frames[$this->focus]->setField($selector, $value);
+        if (is_integer($this->_focus)) {
+            $this->_frames[$this->_focus]->setField($selector, $value);
         } else {
-            for ($i = 0; $i < count($this->frames); $i++) {
-                $this->frames[$i]->setField($selector, $value);
+            for ($i = 0; $i < count($this->_frames); $i++) {
+                $this->_frames[$i]->setField($selector, $value);
             }
         }
     }
@@ -580,8 +584,8 @@ class SimpleFrameset {
      *    @access public
      */
     function getField($selector) {
-        for ($i = 0; $i < count($this->frames); $i++) {
-            $value = $this->frames[$i]->getField($selector);
+        for ($i = 0; $i < count($this->_frames); $i++) {
+            $value = $this->_frames[$i]->getField($selector);
             if (isset($value)) {
                 return $value;
             }
