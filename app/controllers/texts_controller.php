@@ -10,7 +10,7 @@ class TextsController extends AppController {
 			intval($this -> params["end"]),
 			intval($this -> params["step"]),
 			intval($this -> params["questions"])
-		)
+		);
 		if(array_key_exists("indexes",$this -> data)){
 			$text["indexes"] = explode(",",$this -> data["indexes"]);
 		}
