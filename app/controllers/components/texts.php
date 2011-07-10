@@ -7,10 +7,17 @@ class TextsComponent extends Object
 				$controller -> params[$key] = 1;
 			}
 		}
+		$text = $controller->TextCheckAction -> getRangeData(
+			intval($controller -> params["start"]),
+			intval($controller -> params["end"]),
+			intval($controller -> params["step"]),
+			intval($controller -> params["questions"])
+		);
 		if(!is_null($controller -> data) && array_key_exists("TextCheckAction",$controller -> data) &&
 				array_key_exists("indexes",$controller -> data["TextCheckAction"])){
 			$text["question"]["indexes"] = explode(",",$controller -> data["TextCheckAction"]["indexes"]);
 			unset($controller -> data["TextCheckAction"]["indexes"]);
 		}
+		$controller->set('text', $text);
 	}
 }
