@@ -52,17 +52,21 @@
 	))); ?>
 <?php echo $form->hidden("indexes",array("value" => implode(",",$text["question"]["indexes"]))) ?>
 <ul class="clearfix">
-<li class="word">
 <?php 
 	foreach($text["question"]["splitted"] as $index => $word){
+?>
+<li class="word">
+<?php 
 		if(in_array($index,$text["question"]["indexes"])){
 			echo $form -> input("question$index",array('label' => false));
 		}else{
 			echo h($word);
 		}
-	}
 ?>
 </li>
+<?php 
+	}
+?>
 </ul>
 <?php echo $form->submit("Check") ?>
 <?php echo $form->end() ?>
