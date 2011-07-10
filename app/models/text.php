@@ -34,7 +34,10 @@ class Text extends AppModel {
 			$step = $end - $start + 1 + $step;
 		}
 
-		return $this -> findById($start + $step - 1);
+		return array('start' => $start, 
+			'end' => $end, 
+			'step' => $step, 
+			'data' => $this -> findById($start + $step - 1));
 	}
 	var $name = 'Text';
 	var $validate = array(

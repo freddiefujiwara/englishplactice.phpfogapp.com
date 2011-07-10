@@ -28,21 +28,36 @@ class TextTestCase extends CakeTestCase {
 			$this -> assertNotNull($text);
 			$this -> assertFalse(empty($text));
 			$this -> assertTrue(
-				$text["Text"]["id"] >= $start && 
-				$text["Text"]["id"] <= $end
+				$text["data"]["Text"]["id"] >= $start && 
+				$text["data"]["Text"]["id"] <= $end
+			);
+			$this -> assertTrue(
+				$text["start"] >= $start && 
+				$text["start"] <= $end
+			);
+			$this -> assertTrue(
+				$text["end"] >= $end && 
+				$text["end"] <= $end
+			);
+			$this -> assertTrue(
+				$text["step"] >= 1 && 
+				$text["step"] <= ($text["end"] - $text["start"] + 1)
 			);
 		}
 
 		$text = $this -> Text -> findByRange(0,0,0);
-		$this -> assertTrue(1,$text['Text']['id']);
+		$this -> assertTrue(1,$text["data"]['Text']['id']);
+
+		$text = $this -> Text -> findByRange('Hello','World',array());
+		$this -> assertTrue(1,$text["data"]['Text']['id']);
 
 		$last = $this -> Text ->find('count');
 
 		$text = $this -> Text -> findByRange($last,$last,1);
-		$this -> assertTrue($last,$text['Text']['id']);
+		$this -> assertTrue($last,$text["data"]['Text']['id']);
 
 		$text = $this -> Text -> findByRange($last,$last+50,1);
-		$this -> assertTrue($last,$text['Text']['id']);
+		$this -> assertTrue($last,$text["data"]['Text']['id']);
 	}
 	function startTest() {
 		echo "START..";
