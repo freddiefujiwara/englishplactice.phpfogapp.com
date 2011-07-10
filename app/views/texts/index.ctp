@@ -16,6 +16,17 @@
 			"step"       => $text["step"]+1
 	)); ?></li>
 </ul>
+<?php echo $form->create(null,
+	array('url' =>
+		array(
+			"controller" => "texts",
+			"action"     => "params",
+	))); ?>
+<ul>
+<li></li>
+<li><?php echo $form->submit("Go") ?></li>
+</ul>
+<?php echo $form -> end() ?>
 <h1><?php echo h($text["data"]["Text"]["japanese"]) ?></h1>
 <?php echo $form->create('TextCheckAction',
 	array('url' =>
