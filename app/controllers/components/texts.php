@@ -7,5 +7,10 @@ class TextsComponent extends Object
 				$controller -> params[$key] = 1;
 			}
 		}
+		if(!is_null($controller -> data) && array_key_exists("TextCheckAction",$controller -> data) &&
+				array_key_exists("indexes",$controller -> data["TextCheckAction"])){
+			$text["question"]["indexes"] = explode(",",$controller -> data["TextCheckAction"]["indexes"]);
+			unset($controller -> data["TextCheckAction"]["indexes"]);
+		}
 	}
 }
