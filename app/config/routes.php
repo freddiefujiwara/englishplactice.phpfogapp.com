@@ -26,8 +26,22 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/views/pages/home.ctp)...
  */
-	Router::connect('/:start/:end/:questions/:step', array('controller' => 'texts', 'action' => 'index'));
-	Router::connect('/:start/:end/:questions'      , array('controller' => 'texts', 'action' => 'index'));
-	Router::connect('/:start/:end'                 , array('controller' => 'texts', 'action' => 'index'));
-	Router::connect('/:start'                      , array('controller' => 'texts', 'action' => 'index'));
+	Router::connect('/:start/:end/:questions/:step', array('controller' => 'texts', 'action' => 'index'),array(
+		'start'     => '[0-9]+',
+		'end'       => '[0-9]+',
+		'questions' => '[0-9]+',
+		'step'      => '[0-9]+'
+	));
+	Router::connect('/:start/:end/:questions'      , array('controller' => 'texts', 'action' => 'index'),array(
+		'start'     => '[0-9]+',
+		'end'       => '[0-9]+',
+		'questions' => '[0-9]+',
+	));
+	Router::connect('/:start/:end'                 , array('controller' => 'texts', 'action' => 'index'),array(
+		'start'     => '[0-9]+',
+		'end'       => '[0-9]+',
+	));
+	Router::connect('/:start'                      , array('controller' => 'texts', 'action' => 'index'),array(
+		'start'     => '[0-9]+',
+	));
 	Router::connect('/'                            , array('controller' => 'texts', 'action' => 'index'));

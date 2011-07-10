@@ -1,8 +1,9 @@
 <?php
 class TextsController extends AppController {
 
-	var $name = 'Texts';
-	var $uses = array("Text","TextCheckAction");
+	var $name       = 'Texts';
+	var $uses       = array("Text","TextCheckAction");
+	var $components = array("Texts");
 
 	function index() {
 		$text = $this->TextCheckAction -> getRangeData(
