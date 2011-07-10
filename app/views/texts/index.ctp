@@ -1,3 +1,21 @@
+<ul>
+<li><?php echo $html -> link("<<Prev",array(
+			"controller" => "texts",
+			"action"     => "index",
+			"start"      => $text["start"],
+			"end"        => $text["end"],
+			"questions"  => $text["questions"],
+			"step"       => $text["step"]-1
+	)); ?></li>
+<li><?php echo $html -> link("Next>>",array(
+			"controller" => "texts",
+			"action"     => "index",
+			"start"      => $text["start"],
+			"end"        => $text["end"],
+			"questions"  => $text["questions"],
+			"step"       => $text["step"]+1
+	)); ?></li>
+</ul>
 <h1><?php echo h($text["data"]["Text"]["japanese"]) ?></h1>
 <?php echo $form->create('TextCheckAction',
 	array('url' =>
@@ -23,19 +41,3 @@
 </ul>
 <?php echo $form->submit("Check") ?>
 <?php echo $form->end() ?>
-<?php echo $html -> link("<<Prev",array(
-			"controller" => "texts",
-			"action"     => "index",
-			"start"      => $text["start"],
-			"end"        => $text["end"],
-			"questions"  => $text["questions"],
-			"step"       => $text["step"]-1
-	)); ?>
-<?php echo $html -> link("Next>>",array(
-			"controller" => "texts",
-			"action"     => "index",
-			"start"      => $text["start"],
-			"end"        => $text["end"],
-			"questions"  => $text["questions"],
-			"step"       => $text["step"]+1
-	)); ?>
