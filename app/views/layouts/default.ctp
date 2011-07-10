@@ -6,6 +6,28 @@
   <title>English Question</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
   <meta http-equiv="Content-Language" content="ja">
+ <style type="text/css"> 
+/*<![CDATA[*/
+  *{
+  margin: 0;
+  padding: 0;
+ }
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  float: left;
+  width: 100px;
+  margin: 0;
+  padding: 0;
+}
+  /*]]>*/
+  </style>
+
 </head>
 
 <body>
