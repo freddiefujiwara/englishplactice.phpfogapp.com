@@ -1,12 +1,13 @@
 <h1><?php echo h($text["data"]["Text"]["japanese"]) ?></h1>
 <?php echo $form->create('TextCheckAction',
-	array(
-		"controller" => "texts",
-		"action"=>"index",
-		"start" => $text["start"],
-		"end"   => $text["end"],
-		"step"  => $text["step"],
-	)); ?>
+	array('url' =>
+		array(
+			"controller" => "texts",
+			"action"=>"index",
+			"start" => $text["start"],
+			"end"   => $text["end"],
+			"step"  => $text["step"],
+	))); ?>
 <ul>
 <?php 
 	foreach($text["question"]["splitted"] as $index => $word){
