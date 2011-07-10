@@ -3,10 +3,11 @@
 	array('url' =>
 		array(
 			"controller" => "texts",
-			"action"=>"index",
-			"start" => $text["start"],
-			"end"   => $text["end"],
-			"step"  => $text["step"],
+			"action"     => "index",
+			"start"      => $text["start"],
+			"end"        => $text["end"],
+			"questions"  => $text["questions"],
+			"step"       => $text["step"]
 	))); ?>
 <ul>
 <?php 
