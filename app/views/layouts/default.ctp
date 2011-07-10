@@ -21,8 +21,7 @@ ul{
 
 li{
   float: left;
-  width: 100px;
-  margin: 0;
+  margin: 5px;
   padding: 0;
 }
 .clearfix:after {
