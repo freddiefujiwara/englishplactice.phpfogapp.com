@@ -21,8 +21,9 @@ class TextCheckAction extends AppModel {
 			$indexes[] = $index;
 		}
 		if($questions>count($indexes)){$questions = count($indexes);}
-		$question_indexes = array();
-		foreach(count($indexes) > 1 ? array_rand($indexes,$questions) : $indexes as $index){
+		print_r($indexes);
+		print_r(array_rand($indexes,$questions));
+		foreach(array_rand($indexes,$questions) as $index){
 			$question_indexes[] = $indexes[$index];
 		}
 
