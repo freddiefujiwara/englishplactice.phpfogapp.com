@@ -1,1 +1,1 @@
-HELLO WORLD
+<?php print_r($text) ?>
