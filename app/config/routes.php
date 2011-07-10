@@ -27,3 +27,7 @@
  * to use (in this case, /app/views/pages/home.ctp)...
  */
 	Router::connect('/:start/:end/:questions/:step', array('controller' => 'texts', 'action' => 'index'));
+	Router::connect('/:start/:end/:questions'      , array('controller' => 'texts', 'action' => 'index'));
+	Router::connect('/:start/:end'                 , array('controller' => 'texts', 'action' => 'index'));
+	Router::connect('/:start'                      , array('controller' => 'texts', 'action' => 'index'));
+	Router::connect('/'                            , array('controller' => 'texts', 'action' => 'index'));
