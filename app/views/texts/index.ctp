@@ -23,3 +23,19 @@
 </ul>
 <?php echo $form->submit("Check") ?>
 <?php echo $form->end() ?>
+<?php echo $html -> link("<<Prev",array(
+			"controller" => "texts",
+			"action"     => "index",
+			"start"      => $text["start"],
+			"end"        => $text["end"],
+			"questions"  => $text["questions"],
+			"step"       => $text["step"]-1
+	)); ?>
+<?php echo $html -> link("Next>>",array(
+			"controller" => "texts",
+			"action"     => "index",
+			"start"      => $text["start"],
+			"end"        => $text["end"],
+			"questions"  => $text["questions"],
+			"step"       => $text["step"]+1
+	)); ?>
