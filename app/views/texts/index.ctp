@@ -1,4 +1,4 @@
-<?php print_r($text) ?>
+<?php print_r($text["data"]) ?>
 <h1><?php h($text["data"]["Text"]["japanese"]) ?></h1>
 <?php echo $form->create('TextCheckAction'); ?>
 <ul>
