@@ -28,13 +28,13 @@
 	for($i = 1 ; $i <= $max ; $i++ ){
 		$ranges[$i] = $i;
 	}
-	echo $form -> select("start",$ranges,$this -> params["start"],array('empty' => false));
+	echo $form -> select("start",$ranges,$text["start"],array('empty' => false));
 ?></li>
 <li>END:<?php 
-	echo $form -> select("end",$ranges,$this -> params["end"],array('empty' => false));
+	echo $form -> select("end",$ranges,$text["end"],array('empty' => false));
 ?></li>
 <li>NUM QUESTIONS:<?php 
-	echo $form -> select("questions",array(1,2,3,4,5),$this -> params["questions"],array('empty' => false));
+	echo $form -> select("questions",array(1,2,3,4,5),$text["questions"],array('empty' => false));
 ?></li>
 <li><?php echo $form->submit("Go") ?></li>
 </ul>
