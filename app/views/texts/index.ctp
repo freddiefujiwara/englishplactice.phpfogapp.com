@@ -34,7 +34,7 @@
 	echo $form -> select("end",$ranges,$text["end"],array('empty' => false));
 ?></li>
 <li>NUM QUESTIONS:<?php 
-	echo $form -> select("questions",array(1=>1,2=>2,3=>3,4=>4,5=>5),$text["questions"],array('empty' => false));
+	echo $form -> select("questions",array(1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8),$this -> params["questions"],array('empty' => false));
 ?></li>
 <li><?php echo $form->submit("Go") ?></li>
 </ul>
