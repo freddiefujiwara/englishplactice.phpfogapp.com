@@ -10,7 +10,7 @@ class TextsController extends AppController {
 			intval($this -> params["end"]),
 			intval($this -> params["questions"]),
 			intval($this -> params["step"])
-		);
+		));
 
 	}
 
