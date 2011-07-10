@@ -12,7 +12,7 @@ class TextsController extends AppController {
 			intval($this -> params["questions"])
 		);
 		if(array_key_exists("TextCheckAction",$this -> data) &&
-				array_key_exists("indexes",$this -> data["Textcheckaction"])){
+				array_key_exists("indexes",$this -> data["TextCheckaction"])){
 			$text["indexes"] = explode(",",$this -> data["TextCheckAction"]["indexes"]);
 		}
 		$this->set('text', $text);
