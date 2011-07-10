@@ -43,7 +43,7 @@ class TextCheckAction extends AppModel {
 					'message'  => " "
 				),
 				'equalTo' => array(
-					'rule' => array('equalTo',$splitted[$index]),
+					'rule' => array('custom',"/^$splitted[$index]/i"),
 					'message'  => " "
 				)
 			);
