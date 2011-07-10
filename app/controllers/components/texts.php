@@ -6,12 +6,13 @@ class TextsComponent extends Object
 			if(!array_key_exists($key,$controller -> params)){
 				$controller -> params[$key] = 1;
 			}
+			$controller -> params[$key] = intval($controller -> params[$key]);
 		}
 		$text = $controller->TextCheckAction -> getRangeData(
-			intval($controller -> params["start"]),
-			intval($controller -> params["end"]),
-			intval($controller -> params["step"]),
-			intval($controller -> params["questions"])
+			$controller -> params["start"],
+			$controller -> params["end"],
+			$controller -> params["step"],
+			$controller -> params["questions"]
 		);
 		if(!is_null($controller -> data) && array_key_exists("TextCheckAction",$controller -> data) &&
 				array_key_exists("indexes",$controller -> data["TextCheckAction"])){

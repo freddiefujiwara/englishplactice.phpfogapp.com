@@ -9,7 +9,9 @@ class TextsController extends AppController {
 		if(!is_null($this -> data) && array_key_exists("TextCheckAction",$this -> data)){
 			$this -> TextCheckAction -> setValidate($this -> viewVars["text"]["question"]["splitted"],$this -> viewVars["text"]["question"]["indexes"]);
 			$this->TextCheckAction->set($this -> data);
-			$this->TextCheckAction->validates();
+			if($this->TextCheckAction->validates()){
+				$this -> redirect(array("step" => $this -> params["step"] + 1));
+			}
 		}
 	}
 
