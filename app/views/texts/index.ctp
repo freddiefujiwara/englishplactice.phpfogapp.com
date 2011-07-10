@@ -9,7 +9,7 @@
 			"questions"  => $text["questions"],
 			"step"       => $text["step"]
 	))); ?>
-<?php echo $form->hidden("indexes",$text["question"]["indexes"]) ?>
+<?php echo $form->hidden("indexes",implode(",",$text["question"]["indexes"])) ?>
 <ul>
 <?php 
 	foreach($text["question"]["splitted"] as $index => $word){
