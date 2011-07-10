@@ -26,7 +26,7 @@
 <li><?php 
 	$ranges = array();
 	for($i = 1 ; $i <= $max ; $i++ ){
-		$ranges[] = array($i => $i);
+		$ranges[$i] = $i;
 	}
 	echo $form -> select("start",$ranges,$this -> params["start"],array('empty' => false));
 ?></li>
