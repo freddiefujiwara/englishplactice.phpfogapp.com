@@ -37,7 +37,9 @@
    border: 2px solid #f00;
   }
   .word {
-		font-size:20px;
+		font-size:32px;
+		font-weight:bold;
+		color:#555;
   }
 
   .clearfix { display: inline-table; }
