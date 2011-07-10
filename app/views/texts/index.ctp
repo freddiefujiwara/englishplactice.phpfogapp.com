@@ -13,7 +13,7 @@
 <?php 
 	foreach($text["question"]["splitted"] as $index => $word){
 		if(in_array($index,$text["question"]["indexes"])){
-			echo $form -> input("question$index",array('label' => false));
+			echo "<li>".$form -> input("question$index",array('label' => false))."</li>";
 		}else{
 			echo $html -> tag("li",$word); 
 		}
