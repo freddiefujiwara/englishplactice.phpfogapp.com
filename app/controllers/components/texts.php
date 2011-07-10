@@ -1,7 +1,7 @@
 <?php
 class TextsComponent extends Object
 {
-	function startup(&controller){
+	function startup(&$controller){
 		echo __FILE__."\n";
 		foreach(array('start','end','questions','step') as $key){
 			if(!array_key_exists($key,$controller -> params)){
