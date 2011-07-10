@@ -11,7 +11,7 @@ class TextCheckAction extends AppModel {
 		"ours","yours","theirs",
 	);
 	var $validate = array();
-	function getRangeData($start,$end,$step,$num_question){
+	function getRangeData($start,$end,$step,$questions){
 		$this->Text =& ClassRegistry::init('Text');
 		$text = $this -> Text -> findByRange($start,$end,$step);
 		$splitted = preg_split("/[^a-zA-Z'-]/",strtolower(trim($text["data"]["Text"]["english"])),-1,PREG_SPLIT_NO_EMPTY);
@@ -20,9 +20,9 @@ class TextCheckAction extends AppModel {
 			if(in_array($word,$this -> ngList)){continue;}
 			$indexes[] = $index;
 		}
-		if($num_question>count($indexes)){$num_question = count($indexes);}
+		if($questions>count($indexes)){$questions = count($indexes);}
 		$question_indexes = array();
-		foreach(array_rand($indexes,$num_question) as $index){
+		foreach(array_rand($indexes,$questions) as $index){
 			$question_indexes[] = $indexes[$index];
 		}
 
@@ -30,6 +30,7 @@ class TextCheckAction extends AppModel {
 			"splitted" => $splitted,
 			"indexes"  => $question_indexes
 		);
+		$text["questions"] = $questions;
 		return $text;
 	}
 	function setValidate($splitted,$indexes){
