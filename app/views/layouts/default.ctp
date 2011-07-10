@@ -36,6 +36,9 @@
   .form-error {
    border: 2px solid #f00;
   }
+  .word {i
+   font-size:20px;
+  }
 
   .clearfix { display: inline-table; }
 
