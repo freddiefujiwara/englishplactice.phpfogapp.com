@@ -23,7 +23,13 @@
 			"action"     => "params",
 	))); ?>
 <ul>
-<li></li>
+<li><?php 
+	$ranges = array();
+	for($i = 1 ; $i <= $max ; $i++ ){
+		$ranges[] = array($i => $i);
+	}
+	echo $form -> select("start",$ranges,$this -> params["start"],array('empty' => false));
+?></li>
 <li><?php echo $form->submit("Go") ?></li>
 </ul>
 <?php echo $form -> end() ?>
