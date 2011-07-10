@@ -2,10 +2,10 @@
 class TextsController extends AppController {
 
 	var $name = 'Texts';
-	var $uses = array("TextChangeAction");
+	var $uses = array("TextCheckAction");
 
 	function index() {
-		$this->set('text', $this->TextChangeAction -> getRangeData(1,1,1,3));
+		$this->set('text', $this->TextCheckAction -> getRangeData(1,1,1,3));
 	}
 
 }
