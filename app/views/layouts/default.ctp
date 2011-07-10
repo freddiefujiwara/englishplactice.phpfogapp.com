@@ -25,9 +25,22 @@ li{
   margin: 0;
   padding: 0;
 }
+.clearfix:after {
+  content: "."; 
+  display: block; 
+  height: 0; 
+  clear: both; 
+  visibility: hidden;
+}
+
+.clearfix { display: inline-table; }
+
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* End hide from IE-mac */
   /*]]>*/
   </style>
-
 </head>
 
 <body>

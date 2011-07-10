@@ -1,4 +1,4 @@
-<ul>
+<ul class="clearfix">
 <li><?php echo $html -> link("<<Prev",array(
 			"controller" => "texts",
 			"action"     => "index",
@@ -22,7 +22,7 @@
 			"controller" => "texts",
 			"action"     => "params",
 	))); ?>
-<ul>
+<ul class="clearfix">
 <li>START:<?php 
 	$ranges = array();
 	for($i = 1 ; $i <= $max ; $i++ ){
@@ -51,7 +51,7 @@
 			"step"       => $text["step"]
 	))); ?>
 <?php echo $form->hidden("indexes",array("value" => implode(",",$text["question"]["indexes"]))) ?>
-<ul>
+<ul class="clearfix">
 <?php 
 	foreach($text["question"]["splitted"] as $index => $word){
 		if(in_array($index,$text["question"]["indexes"])){
