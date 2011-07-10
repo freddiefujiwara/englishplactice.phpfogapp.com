@@ -5,7 +5,13 @@ class TextsController extends AppController {
 	var $uses = array("Text","TextCheckAction");
 
 	function index() {
-		$this->set('text', $this->TextCheckAction -> getRangeData(1,1,1,3));
+		$this->set('text', $this->TextCheckAction -> getRangeData(
+			intval($this -> params["start"]),
+			intval($this -> params["end"]),
+			intval($this -> params["questions"]),
+			intval($this -> params["step"])
+		);
+
 	}
 
 	function crawl() {
