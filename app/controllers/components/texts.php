@@ -19,5 +19,6 @@ class TextsComponent extends Object
 			unset($controller -> data["TextCheckAction"]["indexes"]);
 		}
 		$controller->set('text', $text);
+		$controller->set('max' , $controller->Text->find("count"));
 	}
 }
