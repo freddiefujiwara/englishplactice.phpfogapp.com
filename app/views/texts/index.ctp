@@ -16,7 +16,6 @@
 			"step"       => $text["step"]+1
 	)); ?></li>
 </ul>
-<?php print_r($text) ?>
 <?php echo $form->create("",
 	array('url' =>
 		array(
