@@ -40,11 +40,9 @@ class TextCheckAction extends AppModel {
 				'noBlank' => array(
 					'rule' => array('notEmpty'),
 					'required' => true,
-					'message' => 'required'
 				),
 				'equalTo' => array(
 					'rule' => array('equalTo',$splitted[$index]),
-					'message' => 'wrong'
 				)
 			);
 		}
