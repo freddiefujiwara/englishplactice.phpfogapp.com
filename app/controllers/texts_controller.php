@@ -8,8 +8,8 @@ class TextsController extends AppController {
 		$this->set('text', $this->TextCheckAction -> getRangeData(
 			intval($this -> params["start"]),
 			intval($this -> params["end"]),
-			intval($this -> params["questions"]),
-			intval($this -> params["step"])
+			intval($this -> params["step"]),
+			intval($this -> params["questions"])
 		));
 
 	}
