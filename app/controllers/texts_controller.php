@@ -20,11 +20,11 @@ class TextsController extends AppController {
 
 	function params() {
 		$this->redirect(array(
-			'action'     => 'index',
-			'start '     => array_key_exists("start",$this -> data) ? intval($this -> data["start"]) : 1,
-			'end '       => array_key_exists("end",$this -> data) ? intval($this -> data["end"]) : 1,
-			'questions ' => array_key_exists("questions",$this -> data) ? intval($this -> data["questions"]) : 1,
-			'step'       => 1
+			'action'    => 'index',
+			'start'     => array_key_exists("start",$this -> data) ? intval($this -> data["start"]) : 1,
+			'end'       => array_key_exists("end",$this -> data) ? intval($this -> data["end"]) : 1,
+			'questions' => array_key_exists("questions",$this -> data) ? intval($this -> data["questions"]) : 1,
+			'step'      => 1
 		));
 	}
 
