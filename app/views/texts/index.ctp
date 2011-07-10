@@ -1,5 +1,10 @@
 <h1><?php echo h($text["data"]["Text"]["japanese"]) ?></h1>
-<?php echo $form->create('TextCheckAction'); ?>
+<?php echo $form->create('TextCheckAction',
+	array("action"=>"index",
+	"start" => $text["start"],
+	"end"   => $text["end"],
+	"step"  => $text["step"],
+)); ?>
 <ul>
 <?php 
 	foreach($text["question"]["splitted"] as $index => $word){
@@ -11,4 +16,5 @@
 	}
 ?>
 </ul>
+<?php echo $form->submit("Check") ?>
 <?php echo $form->end() ?>
