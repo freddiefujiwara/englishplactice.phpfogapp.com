@@ -36,7 +36,7 @@
   .form-error {
    border: 2px solid #f00;
   }
-  .word {i
+  .word {
    font-size:20px;
   }
 
