@@ -38,6 +38,9 @@
   }
   .word {
    font-size:20px;
+   float: left;
+   margin: 5px;
+   padding: 0;
   }
 
   .clearfix { display: inline-table; }
