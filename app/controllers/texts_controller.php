@@ -14,6 +14,11 @@ class TextsController extends AppController {
 		if(array_key_exists("TextCheckAction",$this -> data) &&
 				array_key_exists("indexes",$this -> data["TextCheckAction"])){
 			$text["question"]["indexes"] = explode(",",$this -> data["TextCheckAction"]["indexes"]);
+			unset($this -> data["TextCheckAction"]["indexes"]);
+		}
+		if(array_key_exists("TextCheckAction",$this -> data)){
+			$this -> TextCheckAction -> setValidate($text["question"]["splitted"],$text["question"]["indexes"]);
+			$this->TextCheckAction->validates($this -> data);
 		}
 		$this->set('text', $text);
 	}
