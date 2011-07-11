@@ -81,14 +81,15 @@
 		$("#player").jPlayer({
 			swfPath:"/js",
 			ready:function(){
-				<?php $mp3s = array();
+				<?php $mp3s = $medias = array();
 				foreach($terms as $term){
-					 $mp3s[] = json_encode($term).':"http://englishplactice.appspot.com/apis/tts.mp3?q='.urlencode($term).'"';
+					 $medias[] = json_encode($term).':"http://englishplactice.appspot.com/apis/tts.mp3?q='.urlencode($term).'"';
+					 $mp3s     = json_encode($term);
 				} ?>
 				$(this).jPlayer("setMedia",{
-					<?php echo implode(",",$mp3s) ?>
-				});
-			}
+					<?php echo implode(",",$medias) ?>
+				}).play();
+			},
 		});
 		$('div.hint').expander({
 			slicePoint: 0, 
