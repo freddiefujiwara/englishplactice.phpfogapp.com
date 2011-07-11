@@ -75,17 +75,16 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="http://plugins.learningjquery.com/expander/jquery.expander.js" type="text/javascript"></script>
 <?php echo $javascript -> link("jquery.jplayer.min") ?>
-<?php $terms = preg_split("/[\.!]/",trim($text["data"]["Text"]["english"]),-1,PREG_SPLIT_NO_EMPTY) ?>
+<?php //$terms = preg_split("/[\.!]/",trim($text["data"]["Text"]["english"]),-1,PREG_SPLIT_NO_EMPTY) ?>
+<?php $terms = array(trim($text["data"]["Text"]["english"])) ?>
 <script type="text/javascript"> 
 	$(document).ready(function() {
 		$("#player").jPlayer({
 			swfPath:"/js",
 			ready:function(){
-				<?php $mp3s = $medias = array();
+				<?php $medias = array();
 				foreach($terms as $term){
-//					 $medias[] = json_encode($term).':"http://englishplactice.appspot.com/apis/tts.mp3?q='.urlencode($term).'"';
 					 $medias[] = 'mp3:"http://englishplactice.appspot.com/apis/tts.mp3?q='.urlencode($term).'"';
-					 $mp3s     = json_encode($term);
 				} ?>
 				$(this).jPlayer("setMedia",{
 					<?php echo implode(",",$medias) ?>
