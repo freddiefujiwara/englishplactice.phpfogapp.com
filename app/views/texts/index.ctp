@@ -74,7 +74,12 @@
 <script src="http://plugins.learningjquery.com/expander/jquery.expander.js" type="text/javascript"></script>
 <script type="text/javascript"> 
   $(document).ready(function() {
-    $('div.hint').expander();
+$('div.hint').expander({
+  slicePoint: 50, 
+  widow: 2,
+  expandEffect: 'show', 
+  userCollapseText: '!!hint!!'
+});
   });
 </script>
 <div class="hint"><?php echo h($text["data"]["Text"]["english"]) ?></div>
