@@ -41,6 +41,7 @@
 </ul>
 <?php echo $form -> end() ?>
 <h1><?php echo h($text["data"]["Text"]["japanese"]) ?></h1>
+<div id="player" ></div>
 <?php echo $form->create('TextCheckAction',
 	array('url' =>
 		array(
@@ -73,9 +74,11 @@
 <?php echo $form->end() ?>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="http://plugins.learningjquery.com/expander/jquery.expander.js" type="text/javascript"></script>
+<?php echo $javascript -> link("jquery.jplayer.min") ?>
 <script type="text/javascript"> 
 	$(document).ready(function() {
 		var english = <?php echo json_encode(preg_split("/[\.!]/",trim($text["data"]["Text"]["english"]),-1,PREG_SPLIT_NO_EMPTY)) ?>;
+		$("#player").jPlayer();
 		console.debug(english);
 		$('div.hint').expander({
 			slicePoint: 0, 
