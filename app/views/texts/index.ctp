@@ -75,7 +75,7 @@
 <script src="http://plugins.learningjquery.com/expander/jquery.expander.js" type="text/javascript"></script>
 <script type="text/javascript"> 
 	$(document).ready(function() {
-		var english = <?php json_encode(preg_split("/[\.!]/",$text["data"]["Text"]["english"])) ?>;
+		var english = <?php echo json_encode(preg_split("/[\.!]/",$text["data"]["Text"]["english"])) ?>;
 		console.debug(english);
 		$('div.hint').expander({
 			slicePoint: 0, 
