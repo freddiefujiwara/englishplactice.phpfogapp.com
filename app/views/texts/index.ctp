@@ -83,7 +83,8 @@
 			ready:function(){
 				<?php $mp3s = $medias = array();
 				foreach($terms as $term){
-					 $medias[] = json_encode($term).':"http://englishplactice.appspot.com/apis/tts.mp3?q='.urlencode($term).'"';
+//					 $medias[] = json_encode($term).':"http://englishplactice.appspot.com/apis/tts.mp3?q='.urlencode($term).'"';
+					 $medias[] = 'mp3:"http://englishplactice.appspot.com/apis/tts.mp3?q='.urlencode($term).'"';
 					 $mp3s     = json_encode($term);
 				} ?>
 				$(this).jPlayer("setMedia",{
