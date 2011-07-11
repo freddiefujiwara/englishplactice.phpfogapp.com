@@ -75,10 +75,10 @@
 <script type="text/javascript"> 
   $(document).ready(function() {
 $('div.hint').expander({
-  slicePoint: 50, 
+  slicePoint: 0, 
   widow: 2,
   expandEffect: 'show', 
-  userCollapseText: '!!hint!!'
+  userCollapseText: 'close'
 });
   });
 </script>
