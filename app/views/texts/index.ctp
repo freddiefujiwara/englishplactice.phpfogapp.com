@@ -77,4 +77,4 @@
     $('div.hint').expander();
   });
 </script>
-<div class="hint"><?php h($text["data"]["Text"]["english"]) ?></div>
+<div class="hint"><?php echo h($text["data"]["Text"]["english"]) ?></div>
