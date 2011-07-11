@@ -78,7 +78,8 @@ $('div.hint').expander({
   slicePoint: 0, 
   widow: 2,
   expandEffect: 'show', 
-  userCollapseText: 'close'
+  userCollapseText: 'close',
+  expandText: 'HINT!'
 });
   });
 </script>
