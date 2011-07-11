@@ -71,17 +71,19 @@
 </ul>
 <?php echo $form->submit("Check") ?>
 <?php echo $form->end() ?>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script> 	
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="http://plugins.learningjquery.com/expander/jquery.expander.js" type="text/javascript"></script>
 <script type="text/javascript"> 
-  $(document).ready(function() {
-$('div.hint').expander({
-  slicePoint: 0, 
-  widow: 2,
-  expandEffect: 'show', 
-  userCollapseText: 'close',
-  expandText: 'HINT!'
-});
-  });
+	$(document).ready(function() {
+		var english = <?php json_encode(preg_split("/[\.!]/",$text["data"]["Text"]["english"])) ?>;
+		console.debug(english);
+		$('div.hint').expander({
+			slicePoint: 0, 
+			widow: 2,
+			expandEffect: 'show', 
+			userCollapseText: 'close',
+			expandText: 'HINT!'
+		});
+	});
 </script>
 <div class="hint"><?php echo h($text["data"]["Text"]["english"]) ?></div>
