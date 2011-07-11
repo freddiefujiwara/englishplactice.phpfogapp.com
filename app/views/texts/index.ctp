@@ -88,7 +88,7 @@
 				} ?>
 				$(this).jPlayer("setMedia",{
 					<?php echo implode(",",$medias) ?>
-				}).play();
+				}).jPlayer("play");
 			},
 		});
 		$('div.hint').expander({
