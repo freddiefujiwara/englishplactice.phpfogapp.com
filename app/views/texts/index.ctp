@@ -37,6 +37,7 @@
 	echo $form -> select("questions",array(1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8),$this -> params["questions"],array('empty' => false));
 ?></li>
 <li><?php echo $form->submit("Go") ?></li>
+<li>(<?php echo intval($text["step"]) ?>/<?php echo intval($text["end"]-$text["start"]+1) ?>)</li>
 </ul>
 <?php echo $form -> end() ?>
 <h1><?php echo h($text["data"]["Text"]["japanese"]) ?></h1>
