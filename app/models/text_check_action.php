@@ -4,7 +4,7 @@ class TextCheckAction extends AppModel {
 	var $useTable = false;
 	var $ngList = array(
 		"a","the",
-		"I","you","he","she","it","we","you","they","this","that",
+		"i","you","he","she","it","we","you","they","this","that",
 		"my","your","his","her","its","our","your","their",
 		"me","you","him","her","it","us","you","them",
 		"mine","yours","his","hers",
