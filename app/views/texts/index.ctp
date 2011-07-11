@@ -79,7 +79,7 @@
 	$(document).ready(function() {
 		var english = <?php echo json_encode(preg_split("/[\.!]/",trim($text["data"]["Text"]["english"]),-1,PREG_SPLIT_NO_EMPTY)) ?>;
 		$("#player").jPlayer({
-			swfPath:"/js/"
+			swfPath:"/js"
 		});
 		console.debug(english);
 		$('div.hint').expander({
