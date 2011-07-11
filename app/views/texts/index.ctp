@@ -70,3 +70,11 @@
 </ul>
 <?php echo $form->submit("Check") ?>
 <?php echo $form->end() ?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script> 	
+<script src="http://plugins.learningjquery.com/expander/jquery.expander.js" type="text/javascript"></script>
+<script type="text/javascript"> 
+  $(document).ready(function() {
+    $('div.hint').expander();
+  });
+</script>
+<div class="hint"><?php h($text["data"]["Text"]["english"]) ?></div>
