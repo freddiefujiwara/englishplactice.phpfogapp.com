@@ -11,7 +11,7 @@ class TextCheckAction extends AppModel {
 		"ours","yours","theirs",
 		"are","am","is","were","was",
 		"and",
-		"bob","naomi","nick","dave","jeniffer"
+		"bob","naomi","nick","dave","jennifer"
 	);
 	var $validate = array();
 	function getRangeData($start,$end,$step,$questions){
