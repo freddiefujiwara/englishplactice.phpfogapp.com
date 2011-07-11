@@ -3,7 +3,7 @@ class TextsController extends AppController {
 
 	var $name       = 'Texts';
 	var $uses       = array("Text","TextCheckAction");
-	var $helpers    = array("Html","Form","JavaScript");
+	var $helpers    = array("Html","Form","Javascript");
 	var $components = array("Texts");
 
 	function index() {
