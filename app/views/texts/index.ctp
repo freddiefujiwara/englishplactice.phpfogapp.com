@@ -83,7 +83,7 @@
 			ready:function(){
 				<?php $mp3s = array();
 				foreach($terms as $term){
-					 $mp3s[] = json_encode($term)
+					 $mp3s[] = json_encode($term);
 				} ?>
 				$(this).jPlayer("setMedia",{
 					<?php echo implode(",",$mp3s) ?>
