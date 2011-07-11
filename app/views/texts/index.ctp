@@ -75,23 +75,21 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="http://plugins.learningjquery.com/expander/jquery.expander.js" type="text/javascript"></script>
 <?php echo $javascript -> link("jquery.jplayer.min") ?>
-<?php $terms = preg_split("/[\.!]/",trim($text["data"]["Text"]["english"]),-1,PREG_SPLIT_NO_EMPTY); ?>
+<?php $terms = preg_split("/[\.!]/",trim($text["data"]["Text"]["english"]),-1,PREG_SPLIT_NO_EMPTY) ?>
 <script type="text/javascript"> 
 	$(document).ready(function() {
-		var english = <?php echo json_encode() ?>;
 		$("#player").jPlayer({
 			swfPath:"/js",
 			ready:function(){
-				<?php $mp3s = array() ?>
-				<?php foreach($terms as $term){ ?>
-					<?php $mp3s[] = json_encode($term) ?>
-				<?php } ?>
+				<?php $mp3s = array();
+				foreach($terms as $term){
+					 $mp3s[] = json_encode($term)
+				} ?>
 				$(this).jPlayer("setMedia",{
 					<?php echo implode(",",$mp3s) ?>
 				});
 			}
 		});
-		console.debug(english);
 		$('div.hint').expander({
 			slicePoint: 0, 
 			widow: 2,
