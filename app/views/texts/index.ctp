@@ -80,7 +80,7 @@
 <script type="text/javascript"> 
 	$(document).ready(function() {
 		$("#player").jPlayer({
-			swfPath:"/js",
+			swfPath:"/swf",
 			ready:function(){
 				<?php $medias = array();
 				foreach($terms as $term){
