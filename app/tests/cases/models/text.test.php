@@ -59,20 +59,22 @@ class TextTestCase extends CakeTestCase {
 		$text = $this -> Text -> findByRange($last,$last+50,1);
 		$this -> assertTrue($last,$text["data"]['Text']['id']);
 	}
-	function startTest() {
-		echo "START..";
+	function startTest($method) {
+		echo "\tSTART..$method";
 	}
 
 	function endTest() {
-		echo "END\n";
+		echo "\t..END\n";
 	}
 	function startCase() {
+		echo "TextTestCase\n";
 		$this->Text =& ClassRegistry::init('Text');
 	}
 
 	function endCase() {
 		unset($this->Text);
 		ClassRegistry::flush();
+		echo "end\n";
 	}
 
 }

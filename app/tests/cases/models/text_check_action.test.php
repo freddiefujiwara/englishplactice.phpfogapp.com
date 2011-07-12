@@ -35,8 +35,8 @@ class TextCheckActionTestCase extends CakeTestCase {
 		$this -> assertFalse(empty($text["question"]["indexes"]));
 		foreach($text["question"]["indexes"] as $index){
 			$this -> assertTrue(is_numeric($index));
+			$this -> assertFalse(in_array($text["question"]["splitted"][$index],$this -> TextCheckAction -> ngList));
 		}
-		$this -> assertNotNull($text["question"]["indexes"]);
 	}
 	function testSetValidate(){
 		$start = $end = 62;
@@ -75,20 +75,22 @@ class TextCheckActionTestCase extends CakeTestCase {
 			$this -> assertFalse(array_key_exists("question$index",$this->TextCheckAction->validationErrors));
 		}
 	}
-	function startTest() {
-		echo "START..";
+	function startTest($method) {
+		echo "\tSTART..$method";
 	}
 
 	function endTest() {
-		echo "END\n";
+		echo "\t..END\n";
 	}
 	function startCase() {
+		echo "TextCheckActionTestCase\n";
 		$this->TextCheckAction =& ClassRegistry::init('TextCheckAction');
 	}
 
 	function endCase() {
 		unset($this->TextCheckAction);
 		ClassRegistry::flush();
+		echo "end\n";
 	}
 
 }
