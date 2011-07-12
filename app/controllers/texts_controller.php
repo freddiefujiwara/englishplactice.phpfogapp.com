@@ -12,10 +12,10 @@ class TextsController extends AppController {
 			$this->TextCheckAction->set($this -> data);
 			if($this->TextCheckAction->validates()){
 				$this -> redirect(array("action" => "index",
-					"start"    => $this -> params["start"],
-					"end"      => $this -> params["end"],
+					"start"    => $this -> viewVars["text"]["start"],
+					"end"      => $this -> viewVars["text"]["end"],
 					"questions"=> $this -> params["questions"],
-					"step"     => $this -> params["step"] + 1
+					"step"     => $this -> viewVars["text"]["step"] + 1
 				));
 			}
 		}
