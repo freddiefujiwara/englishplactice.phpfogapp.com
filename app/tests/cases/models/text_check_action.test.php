@@ -55,7 +55,6 @@ class TextCheckActionTestCase extends CakeTestCase {
 		$this->TextCheckAction->validates();
 		foreach($text["question"]["indexes"] as $index){
 			$this -> assertTrue(array_key_exists("question$index",$this->TextCheckAction->validationErrors));
-			$this -> assertEqual("required",$this->TextCheckAction->validationErrors["question$index"]);
 		}
 		$data = array('TextCheckAction'=>array());
 		foreach($text["question"]["indexes"] as $index){
@@ -65,7 +64,6 @@ class TextCheckActionTestCase extends CakeTestCase {
 		$this->TextCheckAction->validates();
 		foreach($text["question"]["indexes"] as $index){
 			$this -> assertTrue(array_key_exists("question$index",$this->TextCheckAction->validationErrors));
-			$this -> assertEqual("wrong",$this->TextCheckAction->validationErrors["question$index"]);
 		}
 		$data = array('TextCheckAction'=>array());
 		foreach($text["question"]["indexes"] as $index){
