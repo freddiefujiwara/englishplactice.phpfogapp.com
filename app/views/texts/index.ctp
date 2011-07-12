@@ -4,7 +4,7 @@
 			"action"     => "index",
 			"start"      => $text["start"],
 			"end"        => $text["end"],
-			"questions"  => $text["questions"],
+			"questions"  => $this -> params["questions"],
 			"step"       => $text["step"]-1
 	)); ?></li>
 <li><?php echo $html -> link("Next>>",array(
@@ -12,7 +12,7 @@
 			"action"     => "index",
 			"start"      => $text["start"],
 			"end"        => $text["end"],
-			"questions"  => $text["questions"],
+			"questions"  => $this -> params["questions"],
 			"step"       => $text["step"]+1
 	)); ?></li>
 </ul>
