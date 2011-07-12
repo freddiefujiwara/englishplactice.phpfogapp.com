@@ -49,7 +49,7 @@
 			"action"     => "index",
 			"start"      => $text["start"],
 			"end"        => $text["end"],
-			"questions"  => $text["questions"],
+			"questions"  => $this -> params["questions"],
 			"step"       => $text["step"]
 	))); ?>
 <?php echo $form->hidden("indexes",array("value" => implode(",",$text["question"]["indexes"]))) ?>
