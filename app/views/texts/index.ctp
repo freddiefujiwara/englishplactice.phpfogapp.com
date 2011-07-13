@@ -1,4 +1,4 @@
-<h2>aaa<?php echo $data["no"] ?></h2>
+<h2><?php echo $data["no"] ?></h2>
 <ul class="clearfix">
 <li><?php echo $html -> link("<<Prev",array(
 			"controller" => "texts",

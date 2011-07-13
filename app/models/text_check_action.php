@@ -22,7 +22,7 @@ class TextCheckAction extends AppModel {
 			"indexes"  => $question_indexes
 		);
 		$data["questions"] = $questions;
-		$data["no"] = 4;
+		$data["no"] = $data["start"] + $data["step"] -1;
 		return $data;
 	}
 	function setValidate($splitted,$indexes){
