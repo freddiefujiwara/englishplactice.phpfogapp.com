@@ -6,8 +6,8 @@ class TextCheckActionTestCase extends CakeTestCase {
 	function testGetRangeData(){
 		$start = $end = 62;
 		$questions = 3;
-		$i = 1;
-		$text = $this -> TextCheckAction -> getRangeData($start,$end,$i,$questions);
+		$step = 1;
+		$text = $this -> TextCheckAction -> getRangeData($start,$end,$step,$questions);
 		$this -> assertNotNull($text);
 		$this -> assertFalse(empty($text));
 		$this -> assertTrue(
@@ -41,16 +41,16 @@ class TextCheckActionTestCase extends CakeTestCase {
 	function testSetValidate(){
 		$start = $end = 62;
 		$questions = 3;
-		$i = 1;
-		$text = $this -> TextCheckAction -> getRangeData($start,$end,$i,$questions);
+		$step = 1;
+		$text = $this -> TextCheckAction -> getRangeData($start,$end,$step,$questions);
 		$this -> TextCheckAction -> setValidate($text["question"]["splitted"],$text["question"]["indexes"]);
 		$this -> assertNotNull($this->TextCheckAction->validate);
 	}
 	function testValidate(){
 		$start = $end = 62;
 		$questions = 3;
-		$i = 1;
-		$text = $this -> TextCheckAction -> getRangeData($start,$end,$i,$questions);
+		$step = 1;
+		$text = $this -> TextCheckAction -> getRangeData($start,$end,$step,$questions);
 		$this -> TextCheckAction -> setValidate($text["question"]["splitted"],$text["question"]["indexes"]);
 		$this->TextCheckAction->validates();
 		foreach($text["question"]["indexes"] as $index){

@@ -2,22 +2,10 @@
 class TextCheckAction extends AppModel {
 	var $name = 'TextCheckAction';
 	var $useTable = false;
-	var $ngList = array(
-		"a","an","the",
-		"i","you","he","she","it","we","you","they","this","that",
-		"my","your","his","her","its","our","your","their",
-		"me","you","him","her","it","us","you","them",
-		"mine","yours","his","hers",
-		"ours","yours","theirs",
-		"are","am","is","were","was",
-		"and",
-		"bob","naomi","nick","dave","jennifer","lisa","jane","mike","joe","panama"
-	);
-	var $validate = array();
 	function getRangeData($start,$end,$step,$questions){
 		$this->Text =& ClassRegistry::init('Text');
-		$text = $this -> Text -> findByRange($start,$end,$step);
-		$splitted = preg_split("/[^a-zA-Z'-]/",strtolower(trim($text["data"]["Text"]["english"])),-1,PREG_SPLIT_NO_EMPTY);
+		$data = $this -> Text -> findByRange($start,$end,$step);
+		$splitted = preg_split("/[^a-zA-Z'-]/",strtolower(trim($data["data"]["Text"]["english"])),-1,PREG_SPLIT_NO_EMPTY);
 		$indexes = array();
 		foreach($splitted as $index => $word){
 			if(in_array($word,$this -> ngList)){continue;}
@@ -29,12 +17,12 @@ class TextCheckAction extends AppModel {
 			$question_indexes[] = $indexes[$index];
 		}
 
-		$text["question"] = array(
+		$data["question"] = array(
 			"splitted" => $splitted,
 			"indexes"  => $question_indexes
 		);
-		$text["questions"] = $questions;
-		return $text;
+		$data["questions"] = $questions;
+		return $data;
 	}
 	function setValidate($splitted,$indexes){
 		$this -> validate = array();
@@ -52,5 +40,17 @@ class TextCheckAction extends AppModel {
 			);
 		}
 	}
+	var $ngList = array(
+		"a","an","the",
+		"i","you","he","she","it","we","you","they","this","that",
+		"my","your","his","her","its","our","your","their",
+		"me","you","him","her","it","us","you","them",
+		"mine","yours","his","hers",
+		"ours","yours","theirs",
+		"are","am","is","were","was",
+		"and",
+		"bob","naomi","nick","dave","jennifer","lisa","jane","mike","joe","panama"
+	);
+	var $validate = array();
 }
 ?>
