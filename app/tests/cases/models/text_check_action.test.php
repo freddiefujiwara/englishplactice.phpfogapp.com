@@ -3,15 +3,6 @@ App::import('Model', 'TextCheckAction');
 
 class TextCheckActionTestCase extends CakeTestCase {
 	var $fixtures = array('app.text');
-	function testGetNo(){
-		$start = 9;
-		$end   = 14;
-		$questions = 4;
-		$step = 3;
-		$data = $this -> TextCheckAction -> getRangeData($start,$end,$step,$questions);
-		$this -> assertTrue(is_numeric($data["no"]));
-		$this -> assertEqual(11,$data["no"]);
-	}
 	function testGetRangeData(){
 		$start = $end = 62;
 		$questions = 3;
